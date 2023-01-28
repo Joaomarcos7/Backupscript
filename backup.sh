@@ -1,28 +1,17 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
-# Diretorio de Backup
+porta=22
+data=`date +%d%m%Y-%H%M`
+source ./golf #importa as variaveis do arquivo golf.txt 
 
-backup_path="/home/user/Documentos"
+# Loop sobre os caminhos do diretorio que serao enviados para a outra Maquina
+for tarefas in "${objetos[@]}"
+do 
+echo -en "\nInício da Backup do Objeto $tarefas em "
+/usr/bin/date
+/usr/bin/rsync -rav --rsh="/usr/bin/sshpass -p $senha ssh -o StrictHostKeyChecking=no -l $usuario_local -p $porta" ~/$tarefas $usuario@$ip:/tmp --progress --relative --exclude-from="/etc/triade/backup/$1-excecoes"
+echo -en "Final do Backup do Objeto em: "
+/usr/bin/date
+done
 
-# Diretorio de Destino
-
-destino="/mnt/backup"
-
-#formato do arquivo
-
-date_format=$(date "+%d-%m-%Y")
-final_archive_name="backup-$date_format.tar.gz"
-#arquivo de log
-
-log_file="/var/log/daily-backup.log" 
-#teste se o pen drive ta plugado 
-if ! mountpoint -q -- $destino ; then
-    printf "Device not mounted in $destino CHECK IT.\n"
-    exit 1
-fi
-
- 
-   ############ ínicio do backup 
-
-tar -czSpf "$destino/$final_archive_name" "$backup_path"
 

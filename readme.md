@@ -1,1 +1,1 @@
-Aprendendo a criar backup automatico para ambiente Linux em ShellScript
+Aprendendo a criar backup automatico para ambiente Linux em ShellScript usando Rsync

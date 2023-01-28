@@ -1,0 +1,13 @@
+job="Backup para Golf"
+ip=10.0.5.7
+origem=teste
+host=L
+usuario_local=triade
+senha=4lemanha,
+email_flag=1
+diretorio=/tmp
+debug=0
+
+objetos=( /etc /usr/local/sbin/triade /root /var/lib/dpkg/status )
+
+
